@@ -1,5 +1,11 @@
 # Products
 
+This is a GraphQL application to manage Products.
+A product has:
+
+- Id (provided by the system)
+- Name (String, Required)
+
 ## Description
 
 Build with [Nest](https://github.com/nestjs/nest) framework
@@ -17,6 +23,12 @@ Build with [Nest](https://github.com/nestjs/nest) framework
 
 ## Running the app
 
+This app use the default port 3000. To change it, define the environment PORT. In a local environment, just copy (and edit the .env file):
+
+````bash
+cp -v .env.example .env
+````
+
 ```bash
 # development
   npm run start
@@ -27,6 +39,10 @@ Build with [Nest](https://github.com/nestjs/nest) framework
 # production mode
   npm run start:prod
 ```
+
+## Usage
+
+Please check [docs/USAGE.md](docs/USAGE.md)
 
 ## Test
 
