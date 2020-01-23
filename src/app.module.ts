@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ProductsModule } from './products/products.module';
 import { ConfigModule } from '@nestjs/config';
 import { GqlConfigService } from './graphql.config.service';
+import { DateScalar } from './common/scalar/date';
 
 @Module({
   imports: [
@@ -12,5 +13,6 @@ import { GqlConfigService } from './graphql.config.service';
     }),
     ProductsModule
   ],
+  providers: [DateScalar],
 })
 export class AppModule {}

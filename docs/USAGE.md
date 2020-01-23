@@ -13,6 +13,21 @@ query {
   products {
     id
     name
+    createdAt
+    updatedAt
+  }
+}
+````
+
+- Get a product:
+
+````graphql
+query {
+  product(id: 1) {
+    id
+    name
+    createdAt
+    updatedAt
   }
 }
 ````
@@ -23,9 +38,11 @@ query {
 
 ````graphql
 mutation {
-  createProduct(name: "Product 1") {
+  createProduct(data: { name: "Product 1" }) {
     id
     name
+    createdAt
+    updatedAt
   }
 }
 ````
@@ -34,9 +51,11 @@ mutation {
 
 ````graphql
 mutation {
-  updateProduct(id: 0, name: "New name") {
+  updateProduct(id: 1, data: { name: "New name" }) {
     id
     name
+    createdAt
+    updatedAt
   }
 }
 ````
@@ -45,6 +64,6 @@ mutation {
 
 ````graphql
 mutation {
-  deleteProduct(id: 0)
+  deleteProduct(id: 1)
 }
 ````

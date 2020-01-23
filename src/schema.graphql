@@ -1,6 +1,10 @@
+scalar Date
+
 type Product {
   id: ID!
   name: String!
+  createdAt: Date!
+  updatedAt: Date
 }
 
 type Query {

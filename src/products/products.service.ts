@@ -7,14 +7,18 @@ export class ProductsService {
   /**
    * MOCK
    */
-  productsFromFakeDb = [{ id: 1, name: 'A' }];
+  productsFromFakeDb = [{ id: 1, name: 'Sample product', createdAt: new Date(), updatedAt: null }];
 
   async create(data: ProductInput): Promise<Product> {
-    let nextId = 0;
+    let nextId = 1;
     if (this.productsFromFakeDb.length > 0) {
       nextId = Math.max.apply(Math, this.productsFromFakeDb.map(function (o) { return o.id + 1; }))
     }
-    this.productsFromFakeDb.push({ id: nextId, name: data.name });
+    this.productsFromFakeDb.push({
+      id: nextId, name: data.name,
+      createdAt: new Date(),
+      updatedAt: null
+    });
     return this.findOneById(nextId);
   }
 
@@ -24,6 +28,7 @@ export class ProductsService {
       return null;
     }
     this.productsFromFakeDb[index].name = data.name;
+    this.productsFromFakeDb[index].updatedAt = new Date();
     return this.productsFromFakeDb[index] as Product;
   }
 
