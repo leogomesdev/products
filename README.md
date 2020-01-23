@@ -3,8 +3,12 @@
 This is a GraphQL application to manage Products.
 A product has:
 
-- Id (provided by the system)
-- Name (String, Required)
+- id (provided by the system)
+- name (String, Required)
+- createdAt (provided by the system)
+- updatedAt (provided by the system)
+
+This application use a "in-memory" variable to store the data. Once restarted, all data will be reset.
 
 ## Description
 
