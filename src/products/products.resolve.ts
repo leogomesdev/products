@@ -1,44 +1,34 @@
-import { Args, Mutation, Query, Resolver  } from '@nestjs/graphql';
-import { GraphQLError } from 'graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { ProductInput } from './dto/product-input';
+import { ProductsService } from './products.service';
+import { Product } from './models/product';
 
 @Resolver()
 export class ProductsResolver {
-  productsFromFakeDb = [
-    { id: 0, name: 'Dipiron' },
-    { id: 1, name: 'Neosaldin' }
-  ];
+  constructor(private readonly productsService: ProductsService) { }
 
-  @Query('products')
-  getProducts() {
-    return this.productsFromFakeDb;
+  @Query()
+  products(): Promise<Product[]> {
+    return this.productsService.findAll();
   }
 
-  @Mutation('createProduct')
-  createProduct(@Args('name') name: string) {
-    const id = this.productsFromFakeDb.length;
-    const newProduct = {id, name};
-    this.productsFromFakeDb.push(newProduct);
-    return newProduct;
+  @Query()
+  product(@Args('id') id: number): Promise<Product> {
+    return this.productsService.findOneById(id);
   }
 
-  @Mutation('updateProduct')
-  updateProduct(@Args('id') id: number, @Args('name') name: string) {
-    const selectedProductIndex = this.productsFromFakeDb.findIndex(product => product.id == id);
-    if (selectedProductIndex == -1) {
-      return new GraphQLError('Product not found');
-    }
-    this.productsFromFakeDb[selectedProductIndex].name = name;
-    //this.productsFromFakeDb.splice(selectedProductIndex, 1);
-    return this.productsFromFakeDb[selectedProductIndex];
+  @Mutation()
+  createProduct(@Args('data') data: ProductInput): Promise<Product> {
+    return this.productsService.create(data);
   }
 
-  @Mutation('deleteProduct')
-  deleteProduct(@Args('id') id: number) {
-    const selectedProductIndex = this.productsFromFakeDb.findIndex(product => product.id == id);
-    if (selectedProductIndex == -1) {
-      return new GraphQLError('Product not found');
-    }
-    this.productsFromFakeDb.splice(selectedProductIndex, 1);
-    return 'OK';
+  @Mutation()
+  updateProduct(@Args('id') id: number, @Args('data') data: ProductInput): Promise<Product>{
+    return this.productsService.update(id, data);
+  }
+
+  @Mutation()
+  deleteProduct(@Args('id') id: number): Promise<boolean> {
+    return this.productsService.remove(id);
   }
 }

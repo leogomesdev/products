@@ -1,14 +1,19 @@
 type Product {
-  id: ID!,
+  id: ID!
   name: String!
 }
 
 type Query {
-  products: [Product]!
+  products: [Product]
+  product(id: ID!): Product
 }
 
 type Mutation {
-  createProduct(name: String!): Product!,
-  updateProduct(id: ID!, name: String!): Product!
-  deleteProduct(id: ID!): String!
+  createProduct(data: ProductInput): Product!
+  updateProduct(id: ID!, data: ProductInput): Product
+  deleteProduct(id: ID!): Boolean
+}
+
+input ProductInput {
+  name: String!
 }
